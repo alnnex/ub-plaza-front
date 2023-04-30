@@ -1,114 +1,323 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerOverlay,
+  Flex,
+  Heading,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+  useDisclosure,
+} from "@chakra-ui/react";
+import { RiShirtLine, RiBook2Line } from "react-icons/ri";
+import { BiBlock } from "react-icons/bi";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import Product from "@/components/modals/Product";
+import ReservedProducts from "@/components/modals/ReservedProducts";
 
-const inter = Inter({ subsets: ['latin'] })
+const items = [
+  {
+    name: "Filipino 1",
+    category: "Book",
+    size: [],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651876/cld-sample-5.jpg",
+    price: 100,
+  },
+  {
+    name: "English 1",
+    category: "Book",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651875/cld-sample-4.jpg",
+    price: 100,
+  },
+  {
+    name: "College Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651874/cld-sample-2.jpg",
+    price: 100,
+  },
+  {
+    name: "Junior High Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651851/samples/ecommerce/analog-classic.jpg",
+    price: 100,
+  },
+  {
+    name: "Filipino 1",
+    category: "Book",
+    size: [],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651876/cld-sample-5.jpg",
+    price: 100,
+  },
+  {
+    name: "English 1",
+    category: "Book",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651875/cld-sample-4.jpg",
+    price: 100,
+  },
+  {
+    name: "College Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651874/cld-sample-2.jpg",
+    price: 100,
+  },
+  {
+    name: "Junior High Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651851/samples/ecommerce/analog-classic.jpg",
+    price: 100,
+  },
+  {
+    name: "Filipino 1",
+    category: "Book",
+    size: [],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651876/cld-sample-5.jpg",
+    price: 100,
+  },
+  {
+    name: "English 1",
+    category: "Book",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651875/cld-sample-4.jpg",
+    price: 100,
+  },
+  {
+    name: "College Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651874/cld-sample-2.jpg",
+    price: 100,
+  },
+  {
+    name: "Junior High Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651851/samples/ecommerce/analog-classic.jpg",
+    price: 100,
+  },
+  {
+    name: "Filipino 1",
+    category: "Book",
+    size: [],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651876/cld-sample-5.jpg",
+    price: 100,
+  },
+  {
+    name: "English 1",
+    category: "Book",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651875/cld-sample-4.jpg",
+    price: 100,
+  },
+  {
+    name: "College Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651874/cld-sample-2.jpg",
+    price: 100,
+  },
+  {
+    name: "Junior High Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651851/samples/ecommerce/analog-classic.jpg",
+    price: 100,
+  },
+  {
+    name: "Filipino 1",
+    category: "Book",
+    size: [],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651876/cld-sample-5.jpg",
+    price: 100,
+  },
+  {
+    name: "English 1",
+    category: "Book",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651875/cld-sample-4.jpg",
+    price: 100,
+  },
+  {
+    name: "College Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651874/cld-sample-2.jpg",
+    price: 100,
+  },
+  {
+    name: "Junior High Uniform Polo",
+    category: "Uniform",
+    size: ["small", "medium", "large", "xl", "xxl"],
+    stock: "10",
+    pic: "https://res.cloudinary.com/alnnex/image/upload/v1660651851/samples/ecommerce/analog-classic.jpg",
+    price: 100,
+  },
+];
 
+const categories = [
+  { category: "All", icon: <BiBlock size={30} /> },
+  { category: "Uniform", icon: <RiShirtLine size={30} /> },
+  { category: "Book", icon: <RiBook2Line size={30} /> },
+];
 export default function Home() {
+  const [categorySelected, setCategorySelected] = useState("All");
+  const [navScrolling, setNavScrolling] = useState(false);
+  const [reservedProducts, setReservedProducts] = useState([]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", changeBg);
+  });
+
+  const changeBg = () => {
+    if (window.scrollY >= 90) {
+      setNavScrolling(true);
+    } else {
+      setNavScrolling(false);
+    }
+  };
+
   return (
-    <>
-      <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="Generated by create next app" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
+    <Box
+      position={"relative"}
+      padding={"4"}
+      paddingX={"10"}
+      minHeight={{ base: "cal(100vh - 56px)", md: "100vh" }}
+    >
+      <Box width={"100%"} marginX={"auto"}>
+        <Text
+          fontSize={"2xl"}
+          fontWeight={"semibold"}
+          color={"gray.700"}
+          marginY={"auto"}
+          // align={"center"}
+        >
+          Categories:
+        </Text>
+        <Flex
+          wrap={"wrap"}
+          gap={"2"}
+          marginBottom={"7"}
+          marginTop={"2"}
+          justifyContent={"space-between"}
+        >
+          {/* <IconButton
+            colorScheme={"linkedin"}
+            width={"fit-content"}
+            height={"fit-content"}
+            padding={"2"}
+            icon={<BiBlock size={70} />}
+            onClick={()
+               => setCategorySelected("All")}
+          /> */}
+
+          <Flex gap={"2"} wrap={"wrap"}>
+            {categories.map((current) => (
+              <IconButton
+                key={current.category}
+                colorScheme={"linkedin"}
+                width={"fit-content"}
+                height={"fit-content"}
+                padding={"1"}
+                icon={current.icon}
+                onClick={() => setCategorySelected(current.category)}
               />
-            </a>
-          </div>
-        </div>
+            ))}
+          </Flex>
+          {/* <IconButton
+            colorScheme={"linkedin"}
+            width={"fit-content"}
+            height={"fit-content"}
+            padding={"1"}
+            icon={<BiCart size={50} />}
+            onClick={() => setCategorySelected("All")}
+          /> */}
 
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-        </div>
+          <ReservedProducts reservedProducts={reservedProducts} />
+        </Flex>
+      </Box>
 
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-    </>
-  )
+      <Flex gap={"4"} wrap={"wrap"} justifyContent={"space-evenly"}>
+        {items
+          .filter((item) => {
+            if (categorySelected === "All") {
+              return item.category.toLowerCase() !== "All";
+            }
+            return (
+              item.category.toLowerCase() === categorySelected.toLowerCase()
+            );
+          })
+          .map((current, Index) => (
+            <Box key={Index}>
+              <Product
+                product={current}
+                setReservedProducts={setReservedProducts}
+                reservedProducts={reservedProducts}
+              >
+                <Flex
+                  cursor={"pointer"}
+                  _hover={{
+                    base: { transform: "scale(1)" },
+                    sm: { transform: "scale(1.1)" },
+                  }}
+                  transition={"ease-in 0.1s"}
+                  direction={"column"}
+                  width={{ base: "100%", sm: "25ch" }}
+                  border={"1px"}
+                  borderColor={"gray.200"}
+                  boxShadow={"lg"}
+                >
+                  <Image
+                    width={400}
+                    height={400}
+                    src={current.pic}
+                    alt={current.name}
+                    style={{
+                      width: "100%",
+                      aspectRatio: "1/1",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }}
+                  />
+                  <Box padding={"2"}>
+                    {" "}
+                    <Text height={"5ch"}>{current.name}</Text>
+                    <Text color={"cyan.600"}>Price: P{current.price}</Text>
+                  </Box>
+                </Flex>
+              </Product>
+            </Box>
+          ))}
+      </Flex>
+    </Box>
+  );
 }
