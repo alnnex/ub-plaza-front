@@ -309,7 +309,7 @@ export default function Home() {
                     }}
                   />
                   <Box padding={"2"}>
-                    {" "}
+                    <small>Category: {current.category}</small>
                     <Text height={"5ch"}>{current.name}</Text>
                     <Text color={"cyan.600"}>Price: P{current.price}</Text>
                   </Box>
