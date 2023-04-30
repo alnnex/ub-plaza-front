@@ -50,30 +50,33 @@ export default function Product(props) {
 
         <ModalContent
           maxWidth={"50em"}
-          marginTop={{ base: "0", md: "20" }}
-          marginBottom={{ base: "0", md: "20" }}
+          marginTop={{ base: "0", sm: "20" }}
+          marginBottom={{ base: "0", sm: "20" }}
         >
           <ModalCloseButton />
           <ModalHeader></ModalHeader>
           <ModalBody paddingY={"6"}>
             <Flex
-              direction={{ base: "column", md: "row" }}
+              direction={{ base: "column", sm: "row" }}
               gap={"3"}
               width={"100%"}
             >
-              <Image
-                width={500}
-                height={500}
-                src={props.product.pic}
-                alt={props.product.name}
-                style={{
-                  height: "20em",
-                  width: "20em",
-                  aspectRatio: "1/1",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                }}
-              />
+              <Box>
+                <Image
+                  width={500}
+                  height={500}
+                  src={props.product.pic}
+                  alt={props.product.name}
+                  style={{
+                    height: "100%",
+                    width: "100%",
+                    aspectRatio: "1/1",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                  }}
+                />
+              </Box>
+
               <Flex direction={"column"} gap={"2"} width={"100%"}>
                 <Text fontSize={"2xl"}>{props.product.name}</Text>
                 <Text color={"cyan.600"}>Price: P{props.product.price}</Text>

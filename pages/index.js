@@ -296,18 +296,21 @@ export default function Home() {
                   borderColor={"gray.200"}
                   boxShadow={"lg"}
                 >
-                  <Image
-                    width={400}
-                    height={400}
-                    src={current.pic}
-                    alt={current.name}
-                    style={{
-                      width: "100%",
-                      aspectRatio: "1/1",
-                      objectFit: "cover",
-                      objectPosition: "center",
-                    }}
-                  />
+                  <Box>
+                    <Image
+                      width={400}
+                      height={400}
+                      src={current.pic}
+                      alt={current.name}
+                      style={{
+                        width: "100%",
+                        aspectRatio: "1/1",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                      }}
+                    />
+                  </Box>
+
                   <Box padding={"2"}>
                     <small>Category: {current.category}</small>
                     <Text height={"5ch"}>{current.name}</Text>

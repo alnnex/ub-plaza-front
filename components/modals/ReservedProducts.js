@@ -51,28 +51,39 @@ export default function ReservedProducts(props) {
             <Flex gap={"2"} direction={"column"}>
               {props.reservedProducts &&
                 props.reservedProducts?.map((current, Index) => (
-                  <Flex border={"1px"} borderColor={"gray.300"} key={Index}>
-                    <Image
-                      width={100}
-                      height={100}
-                      alt={current.name}
-                      style={{
-                        aspectRatio: "1/1",
-                        objectPosition: "center",
-                        objectFit: "cover",
-                        width: "10ch",
-                      }}
-                      src={current.pic}
-                    />
+                  <Flex
+                    border={"1px"}
+                    borderColor={"gray.300"}
+                    direction={{ base: "column", sm: "row" }}
+                    key={Index}
+                  >
+                    <Box width={{ base: "100%", sm: "10ch" }}>
+                      <Image
+                        width={500}
+                        height={500}
+                        alt={current.name}
+                        style={{
+                          aspectRatio: "1/1",
+                          objectPosition: "center",
+                          objectFit: "cover",
+                          width: "100%",
+                        }}
+                        src={current.pic}
+                      />
+                    </Box>
+
                     <Flex
                       width={"100%"}
                       justifyContent={"space-between"}
                       paddingX={"4"}
-                      direction={{ base: "column", md: "row" }}
+                      direction={{ base: "column", sm: "row" }}
                     >
                       <Flex direction={"column"}>
-                        <Text fontSize={"lg"}>{current.name}</Text>
                         <small>Category: {current.category}</small>
+                        <Text fontSize={{ base: "md", sm: "lg" }}>
+                          {current.name}
+                        </Text>
+
                         {current.variation && (
                           <Text>Variation: {current.variation}</Text>
                         )}
