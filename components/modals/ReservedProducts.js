@@ -60,7 +60,7 @@ export default function ReservedProducts(props) {
                         aspectRatio: "1/1",
                         objectPosition: "center",
                         objectFit: "cover",
-                        width: "7ch",
+                        width: "10ch",
                       }}
                       src={current.pic}
                     />
@@ -68,6 +68,7 @@ export default function ReservedProducts(props) {
                       width={"100%"}
                       justifyContent={"space-between"}
                       paddingX={"4"}
+                      direction={{ base: "column", md: "row" }}
                     >
                       <Flex direction={"column"}>
                         <Text fontSize={"lg"}>{current.name}</Text>
